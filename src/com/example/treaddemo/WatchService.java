@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 public class WatchService extends Service{
 
@@ -17,11 +18,13 @@ public class WatchService extends Service{
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.d("debug WatchService", "WatchService onCreate()");
 		workThread = new Thread(null, backgroundwork, "WorkThread");
 	}
 	
 	public class LocalBBinder extends Binder{
 		WatchService getService(){
+			Log.d("debug WatchService", "WatchService getService()创建对象");
 			return WatchService.this;
 		}
 	}
@@ -30,11 +33,13 @@ public class WatchService extends Service{
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
+		Log.d("debug WatchService", "onBind()");
 		return mBinder;
 	}
     //取消绑定
 	@Override
 	public boolean onUnbind(Intent intent){
+		Log.d("debug WatchService", "onUnbind()");
 		return false;
 	}
 	
